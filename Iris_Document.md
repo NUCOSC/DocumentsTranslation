@@ -15,3 +15,15 @@ Iris可以被用做[gRPC](https://grpc.io/)的web端口，REST API for gRPC服�
 Iris的源代码被存储在GitHub，并且基于 [BSD 3-clause 协议](https://opensource.org/licenses/BSD-3-Clause)，就跟[Go 项目](https://github.com/golang/go)本身一样
 
 > 文档支持[v12.1.8 稳定版](https://github.com/kataras/iris/tree/v12.1.8)。想要获取学习最新的更新？看一看[HISTORY.md#next](https://github.com/kataras/iris/blob/master/HISTORY.md#next)
+
+## 开始上手
+
+### 安装
+
+Iris是一个跨平台的软件
+
+唯一的要求是[Go语言](https://golang.org/dl/)，版本为1.14及以上
+
+```shell
+go env -w GO111MODULE=on
+```

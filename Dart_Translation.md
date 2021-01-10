@@ -1,56 +1,50 @@
-# Dart教程翻译
+# Dart教程
 
-本翻译最早于2018-11-02 23:51发表在[中北大学大数据协会论坛——听雨轩](http://nucode.cn/article/1541173863490)，完整版于2018-12-02 18:19发表在[链接](http://nucode.cn/article/1543745957253)
-
-> 之前仅在[个人网站](http://www.jieec.cn)、[听雨轩](http://nucode.cn)和[Herbert部落格](https://herberthe.github.io)发表过
-
-***
+> 本文出于知识共享的目的，转载请注明出处
 
 ## 写在前面
 
-> 本文是参考了Dart官网https://www.dartlang.org 的教程、参考的机翻以及对于其他语言学习的经验来翻译的本入门教程，译者精力和学历有限，如有不妥之处欢迎指正。
-
-> 本文出于知识共享的目的，转载请注明出处，如果用于商用请联系 admin@jieec.cn
+> 本文是参考了[Dart官网](https://www.dartlang.org) 的教程、参考的机翻以及对于其他语言学习的经验来翻译的本入门教程，译者精力和学历有限，如有不妥之处欢迎指正。
 
 ## 在线编译
 
-> DartPad https://dartpad.dartlang.org/
+> [DartPad](https://dartpad.dartlang.org/)
 
 ## 概念
 
 * Dart变量中的内容都是对象，对象都是类的实例，所有对象都是从Object类继承的
 * Dart要求规定类型，但是可以自行推断类型。var num = 10; 就可以推断其类型为int（**不需要类型之dynamic**）
-* Dart之泛型类型List <int\> (*整数列表*)or List <dynamic\>（*任何类型的对象列表*）
+* Dart之泛型类型`List <int>` (*整数列表*)or `List <dynamic>`（*任何类型的对象列表*）
 * 主函数main(),支持自定义函数和函数嵌套
 * 支持全局变量，私有变量。实例的变量可以称为字段或者属性
-* 不具备数据保护相关的关键字，用（\_)开头确定私有
-* 标识符可以以字母或者（\_）下划线开头，后面字母和数字任意组合
+* 不具备数据保护相关的关键字，用`_`开头确定私有
+* 标识符可以以字母或者`_`下划线开头，后面字母和数字任意组合
 
 ## 关键字
 
-| 关键字列表 | | | |
-| :---: | :---: | :---: | :---: |
-| abstract 2 | dynamic 2 | implements 2 | show 1 |
-| as 2 | else | import 2 | static 2 |
-| assert | enum | in | super |
-| async 1 | export 2 | interface 2 | switch |
-| await 3 | external 2 | is | sync 1 |
-| break | extends | library 2 | this |
-| case | factory 2 | mixin 2 | throw |
-| catch | false | new | true |
-| class | final | null | try |
-| const | finally | on 1 | typedef 2 |
-| continue | for | operator 2 | var |
-| covariant 2 | Function 2 | part 2 | void |
-| default | get 2 | rethrow | while |
-| deferred 2 | hide 1 | return | with |
-| do | if | set 2 | yield 3 |
+| 关键字列表  |            |              |           |
+| :---------: | :--------: | :----------: | :-------: |
+| abstract 2  | dynamic 2  | implements 2 |  show 1   |
+|    as 2     |    else    |   import 2   | static 2  |
+|   assert    |    enum    |      in      |   super   |
+|   async 1   |  export 2  | interface 2  |  switch   |
+|   await 3   | external 2 |      is      |  sync 1   |
+|    break    |  extends   |  library 2   |   this    |
+|    case     | factory 2  |   mixin 2    |   throw   |
+|    catch    |   false    |     new      |   true    |
+|    class    |   final    |     null     |    try    |
+|    const    |  finally   |     on 1     | typedef 2 |
+|  continue   |    for     |  operator 2  |    var    |
+| covariant 2 | Function 2 |    part 2    |   void    |
+|   default   |   get 2    |   rethrow    |   while   |
+| deferred 2  |   hide 1   |    return    |   with    |
+|     do      |     if     |    set 2     |  yield 3  |
 
 避免使用关键字作为标识符，如果有必要标数字的关键字可以作为标识符：
 
 * 1：上下文关键字标识符，仅在特定位置有含义
 * 2：内置标识符，简化js转移dart的工作，不能作为类或者类型的标识符，不能用作导入前缀
-* 3：dart 1.0发布后添加的异步支持相关的更新，有限的保留字。不能使用await or yield作为任何函数体中的标识符标记async,async\* or sync\*
+* 3：dart 1.0发布后添加的异步支持相关的更新，有限的保留字。不能使用`await` or `yield`作为任何函数体中的标识符标记`async`, `async*` or `sync*`
 
 ## 变量
 
@@ -62,7 +56,7 @@
 
 ### 默认值
 
-未初始化的默认值都为null，断言*assert(condition);*
+未初始化的默认值都为null，断言`assert(condition);`
 
 ### final & const
 
@@ -72,31 +66,31 @@
 
 示例：
 
-```
+```dart
   final name = 'Bob';//无法再更改值
 ```
 
 如果const变量在类内，请标记为static const,const属于Object类
 
-```
+```dart
   const bar = 1000000;//压力单位(dynes/cm2)
   const double atm = 1.01325*bar;//标准大气压
 ```
 
 const不仅仅可以声明常变量，也可以用来创建常量值constant values，以及声明常量值的构造函数，任何变量都可以具有常量值。
 
-```
+```dart
   var foo = const [];
   final bar = const [];
-  const baz = [];//与"const []"等价
+  const baz = []; //与"const []"等价
 ```
 
 * 可以省略声明const的初始化表达式，如上所示。不要冗余使用const！
 * 你可以修改非final，非const变量的值，即使变量曾用过const的值
 
-```
-  foo = [1,2,3];√
-  baz = [1,2,3];×
+```dart
+  foo = [1,2,3]; // √
+  baz = [1,2,3]; // X
 ```
 
 ## 内置类型
@@ -113,33 +107,31 @@ const不仅仅可以声明常变量，也可以用来创建常量值constant val
 
 ### 数字
 
-1. int
+int
 
-*整数值不大于64位，具体视平台而定*
+> 整数值不大于64位，具体视平台而定
 
-2. double
+double
 
-*64位双精度浮点数，IEEE 754标准*
-
-> int & double都属于数字这一类型，数字基本运算符有+、-、\*、/之类的，也包括abs()、ceil()、floor()和其他方法。（类似于">>"的位运算符，在int类中被定义），如果在num及其子类中没有要找的，去dart:math库中看看！
+> 64位双精度浮点数，IEEE 754标准, int & double都属于数字这一类型，数字基本运算符有+、-、\*、/之类的，也包括abs()、ceil()、floor()和其他方法。（类似于">>"的位运算符，在int类中被定义），如果在num及其子类中没有要找的，去dart:math库中看看！
 
 int示例
 
-```
+```dart
   int x = 1;
   int hex = 0xDEADBEEF;
 ```
 
 double示例
 
-```
+```dart
   double y = 1.1;
   double exponents = 1.42e5;
 ```
 
 以下是字符串如何转化为数字，反之亦然
 
-```
+```dart
   // String -> int
   var one = int.parse('1');
   assert(one == 1);
@@ -160,7 +152,7 @@ double示例
 
 int类型指定移位操作（<<、>>）,AND（&）和OR（|）运算符。
 
-```
+```dart
   assert((3<<1)==6);// 0011 << 1 == 0110
   assert((3>>1)==1);// 0011 >> 1 == 0001
   assert((3|4)==7);// 0011 | 0100 == 0111
@@ -168,7 +160,7 @@ int类型指定移位操作（<<、>>）,AND（&）和OR（|）运算符。
 
 > Literal numbers（能力有限，不知道如何翻译）是编译时常量，很多的算术表达式也是编译时的常量，只要它们的操作数是编译为数字的编译时常量——引用自dart官网
 
-```
+```dart
   const msPerSecond = 1000;
   const secondsUntilRetry = 5;
   const msUntilRetry = secondsUntilRetry*msPerSecond;
@@ -180,7 +172,7 @@ Dart字符串是一系列的UTF-16代码单元，可以使用 '' or "" 创建字
 
 示例
 
-```
+```dart
   var s1 = 'Single quotes work well for string literals.';
   var s2 = "Double quotes work just as well.";
   var s3 = 'It\'s easy to escape the string delimiter.'; // 译者注\'是转译输出'
@@ -189,7 +181,7 @@ Dart字符串是一系列的UTF-16代码单元，可以使用 '' or "" 创建字
 
 你可以将表达式的值置入字符串中通过使用${expression}。如果表达式是标识符，你可以跳过{}（就是省略{}）。要获取会对象对应的字符串，Dart会调用对象的toString()方法。
 
-```
+```dart
   var s = 'string interpolation';
 
   assert('Dart has $s, which is very handy.' == 'Dart has string interpolation, ' + 'which is very handy.');
@@ -203,7 +195,7 @@ Dart字符串是一系列的UTF-16代码单元，可以使用 '' or "" 创建字
 
 另一种创建多行字符串的方法是：使用三个单引号或者双引号
 
-```
+```dart
   var s1 = '''
   多行字符串1
   ''';
@@ -216,7 +208,7 @@ Dart字符串是一系列的UTF-16代码单元，可以使用 '' or "" 创建字
 
 你可以通过添加前缀r来创建原始字符串（在原始字符串中，字符串是不会被特殊处理的）
 
-```
+```dart
   var s = r'这是一个原始字符串';
 ```
 
@@ -226,7 +218,7 @@ Dart字符串是一系列的UTF-16代码单元，可以使用 '' or "" 创建字
 
 演示代码
 
-```
+```dart
   // 常字符串
   const aConstNum = 0;
   const aConstBool = true;
@@ -250,7 +242,7 @@ Dart用bool类表示布尔值，只有两个对象true、false，它们都是编
 
 Dart的类型安全意味着你不能使用类似于if(非布尔值)或者assert(非布尔值)的语句，不过可以明确地检查值，如示例：
 
-```
+```dart
   // 检查空字符串
   var fullName = '';
   assert(fullName.isEmpty);
@@ -275,15 +267,15 @@ Dart的类型安全意味着你不能使用类似于if(非布尔值)或者assert
 
 Dart列表看起来想JavaScript数组。示例：
 
-```
+```dart
   var list = [1,2,3];
 ```
 
-> 分析器推断list类型为list<int>。如果将非int类型对象加入此列表，会引发错误。获取更多的信息，阅读有关 *类型推断*。
+> 分析器推断list类型为`list<int>`。如果将非int类型对象加入此列表，会引发错误。获取更多的信息，阅读有关 *类型推断*。
 
 列表从零开始索引，0是列表的第一个元素索引，list.length - 1是列表的最后一个元素索引。可以像JavaScript那样获取一个列表的长度并引用元素。
 
-```
+```dart
   var list = [1,2,3];
   assert(list.length == 3);
   assert(list[1] == 2);
@@ -294,7 +286,7 @@ Dart列表看起来想JavaScript数组。示例：
 
 创建一个编译时常量列表，在列表文字前添加const：
 
-```
+```dart
   var constantList = const [1,2,3]
   // 同样，值不可以更改
 ```
@@ -309,7 +301,7 @@ List类型有很多方便的方法来操作列表。有关更多信息，请参�
 
 以下是一些简单使用map文字创建的Dart maps：
 
-```
+```dart
   var gifts = {
     // key:value
     'first': 'partridge',
@@ -328,7 +320,7 @@ List类型有很多方便的方法来操作列表。有关更多信息，请参�
 
 你也可以使用构造函数Map()创建相同的对象：
 
-```
+```dart
   var gifts = Map();
   gifts['first'] = 'partridge';
   gifts['second'] = 'turtledoves';
@@ -340,14 +332,14 @@ List类型有很多方便的方法来操作列表。有关更多信息，请参�
 
 跟在JavaScript中一样，将新的键值对加到现有的地图中（**译者注：在python的字典中其实也是这样的···**）
 
-```
+```dart
   var gifts = {'first': 'partridge'};
   gifts['fourth'] = 'calling birds';
 ```
 
 跟在JavaScript中一样的方式在地图中检索值，不在就返回null：（**译者注：译者懒得注了**）
 
-```
+```dart
   var gifts = {'first': 'partridge'};
   assert(gifts['first'] == 'partridge');
   assert(gifts['fifth'] == null);
@@ -355,7 +347,7 @@ List类型有很多方便的方法来操作列表。有关更多信息，请参�
 
 使用.length获取map中键值对的数目
 
-```
+```dart
   var gifts = {'first': 'partridge'};
   gifts['fourth'] = 'calling birds';
   assert(gifts.length == 2);
@@ -363,7 +355,7 @@ List类型有很多方便的方法来操作列表。有关更多信息，请参�
 
 常地图，定义与上面相似，不写了···
 
-```
+```dart
   final constantMap = const {
     2: 'helium',
     10: 'neon',
@@ -386,7 +378,7 @@ Unicode为世界上所有书写系统中的每一个字母、数字、符号都�
 
 以下示例说明了符文，16位代码单元和32位代码点之间的关系。
 
-```
+```dart
   main()
   {
     var clapping = '\u{1f44f}';
@@ -408,7 +400,7 @@ Unicode为世界上所有书写系统中的每一个字母、数字、符号都�
 
 请使用符号文字获取标识符的符号（#后面跟着标识符）：
 
-```
+```dart
   #radix
   #bar
 ```
@@ -421,7 +413,7 @@ Dart是一门面向对象的语言，即便是函数也是对象，并且具有�
 
 以下是一个实现函数的示例：
 
-```
+```dart
   bool isNoble(int atomicNumber){
     return _nobleGases[atomicNumber] != null;
   }
@@ -429,7 +421,7 @@ Dart是一门面向对象的语言，即便是函数也是对象，并且具有�
 
 虽然Effective Dart建议 ***为公共API键入注释*** ，但是省略类型，函数还是有效的
 
-```
+```dart
   isNoble(atomicNumber){
     return _nobleGases[atomicNumber] != null;
   }
@@ -437,7 +429,7 @@ Dart是一门面向对象的语言，即便是函数也是对象，并且具有�
 
 对于只含有一个表达式的函数，可以使用简写的语法：
 
-```
+```dart
   bool isNoble(int atomicNumber) => _nobleGases[atomicNumber] != null;
 ```
 
@@ -455,13 +447,13 @@ Dart是一门面向对象的语言，即便是函数也是对象，并且具有�
 
 调用函数的时候，可以使用 *paramName: value* 指定的命名参数。例如：
 
-```
+```dart
   enableFlags(bold: true, hidden: false);
 ```
 
 定义函数时，使用 *{param1, param2, ...}* 指定命名参数：
 
-```
+```dart
   // 设置[bold]和[hidden]标志flags...
   void enableFlags({bool bold, bool hidden}){...}
 ```
@@ -470,7 +462,7 @@ Dart是一门面向对象的语言，即便是函数也是对象，并且具有�
 
 可以使用 *@required* 在任何Dart代码（不仅仅是Flutter）中注释命名参数，以指示它是 *必需参数* 。例如：
 
-```
+```dart
   const Scrollbar({Key key, @required Widget child})
 ```
 
@@ -482,7 +474,7 @@ Dart是一门面向对象的语言，即便是函数也是对象，并且具有�
 
 包装一组函数参数在[]内标记它们作为可选位置参数：
 
-```
+```dart
   String say(String from, String msg, [String device]){
     var result = '$from says $msg';
     if (device != null){
@@ -494,13 +486,13 @@ Dart是一门面向对象的语言，即便是函数也是对象，并且具有�
 
 下面是一个没有可选参数情况下调用此函数的示例：
 
-```
+```dart
   assert(say('Bob', 'Howdy') == 'Bob says Howdy');
 ```
 
 下面是一个带有第三个参数情况下调用此函数的示例：
 
-```
+```dart
   assert(say('Bob', 'Howdy', 'smoke signal') == 'Bob says Howdy with a smoke signal');
 ```
 
@@ -510,7 +502,7 @@ Dart是一门面向对象的语言，即便是函数也是对象，并且具有�
 
 这是一个为命名参数设置默认值的示例：
 
-```
+```dart
   // 设置[bold]和[hidden]flag
   void enableFlags({bool bold = false,bool hidden = false}) {...}
 
@@ -523,7 +515,7 @@ Dart是一门面向对象的语言，即便是函数也是对象，并且具有�
 
 这个示例演示了如何去给位置参数设置默认值
 
-```
+```dart
   String say(String from, String msg, [String device = 'carrier pigeon', String mood]){
     var result = '$from says $msg';
     if (device != null){
@@ -540,7 +532,7 @@ Dart是一门面向对象的语言，即便是函数也是对象，并且具有�
 
 你也可以将列表或者地图作为默认值传递。下面的示例定义了一个doStuff()的函数，为list参数指定了一个默认的列表，为gifts参数指定了一个默认的地图。
 
-```
+```dart
   void doStuff(
   {List<int> list = const [1, 2, 3],
     Map<String, String> gifts = const {
@@ -556,11 +548,11 @@ Dart是一门面向对象的语言，即便是函数也是对象，并且具有�
 
 ### main()函数
 
-每一个app都必须有个顶级函数main()，相当于是app的入口。main()函数返回void并且有一个可选的List<String>参数。
+每一个app都必须有个顶级函数main()，相当于是app的入口。main()函数返回void并且有一个可选的`List<String>`参数。
 
 这是一个web app的main()函数示例：
 
-```
+```dart
   void main(){
     querySeletor('#sample_text_id')
       ..text = 'Click me!'
@@ -572,7 +564,7 @@ Dart是一门面向对象的语言，即便是函数也是对象，并且具有�
 
 下面是一个带参数的main函数()的命令行app示例：
 
-```
+```dart
   // 像这样运行app：dart args.dart 1 test
   void main(List<String> arguments){
     print(arguments);
@@ -589,7 +581,7 @@ Dart是一门面向对象的语言，即便是函数也是对象，并且具有�
 
 你可以将一个函数作为参数传递给其他函数。比如：
 
-```
+```dart
   void printElement(int element){
     print(element);
   }
@@ -602,7 +594,7 @@ Dart是一门面向对象的语言，即便是函数也是对象，并且具有�
 
 你也可以将函数分配给一个变量。比如：
 
-```
+```dart
   var loudify = (msg) => '!!! ${msg.toUpperCase()} !!!';
   assert(loudify('hello') == '!!! HELLO !!!');
 ```
@@ -617,7 +609,7 @@ Dart是一门面向对象的语言，即便是函数也是对象，并且具有�
 
 下面的代码块包含了函数的主体
 
-```
+```dart
   ([Type] param1[, ...]){
     codeBlock;
   };
@@ -625,7 +617,7 @@ Dart是一门面向对象的语言，即便是函数也是对象，并且具有�
 
 下面的例子中定义了一个带有未指定类型参数 *item* 的匿名函数。为列表中的每个项调用的函数将打印一个字符串，该字符串包含指定索引处的值。
 
-```
+```dart
   var list = ['apples', 'bananas', 'oranges'];
   list.forEach((item){
     print('${list.indexOf(item)}: $item');
@@ -633,13 +625,14 @@ Dart是一门面向对象的语言，即便是函数也是对象，并且具有�
 ```
 
 > 写入程序的输出结果为：
+
   1. 0: apples
   2. 1: bananas
   3. 2: oranges
 
 如果函数只包含了一个语句，你可以使用箭头表示法让代码更短。复制下面的代码到DartPad，然后点击run证明它在功能上是等价的。
 
-```
+```dart
   list.forEach(
     (item) => print('${list.indexOf(item): $item}')
     );
@@ -651,7 +644,7 @@ Dart是一个有词汇作用域的语言，就意味着变量的作用域是静�
 
 以下是在每个范围级别具有变量的嵌套函数的示例：
 
-```
+```dart
   bool topLevel = true;
 
   void main() {
@@ -680,7 +673,7 @@ Dart是一个有词汇作用域的语言，就意味着变量的作用域是静�
 
 函数关闭在周围定义的变量。在下面的示例中，makeAdder()捕获变量addBy。无论返回的函数在哪里，它都会记住addBy。
 
-```
+```dart
   // 返回一个函数，它为函数的参数添加[addBy]
   Function makeAdder(num addBy){
     return (num i) => addBy + i;
@@ -703,7 +696,7 @@ Dart是一个有词汇作用域的语言，就意味着变量的作用域是静�
 
 下面是一个测试顶级函数，静态方法，实例方法等价性的例子：
 
-```
+```dart
   void foo() {} // 顶级函数
   class A {
     static void bar() {} // 静态方法
@@ -739,7 +732,7 @@ Dart是一个有词汇作用域的语言，就意味着变量的作用域是静�
 
 所有的函数都会返回值。如果没有返回值被指定，表达式返回null；隐式添加到函数体。
 
-```
+```dart
   foo() {}
   assert(foo() == null);
 ```
@@ -748,30 +741,30 @@ Dart是一个有词汇作用域的语言，就意味着变量的作用域是静�
 
 Dart定义了下述表格中的运算符。你可重载部分的运算符，在 *重载运算符* 中具体介绍。
 
-| 类型 | 运算符 |
-| --- | :---: |
-| 一元后缀 | expr++ expr-- () [] . ?. |
-| 一元前缀 | -expr !expr ~expr ++expr --expr |
-| 乘式 | * / % ~/ |
-| 和式 | + - |
-| 移位 | << >> |
-| 位与 | & |
-| 位异或 | ^ |
-| 位或 | 丨 |
-|| **译者注：由于markdown的制表和位或运算的符号发生冲突，故使用的是丨（gun）代替** |
-| 关系与类型测试 | >= > <= as is is! |
-| 等价 | == != |
-| 逻辑与 | && |
-| 逻辑或 | 丨丨 |
-| | **译者注：同上** |
-| 如果null | ?? |
-| 控制表达式 | expr1 ? expr2 : expr3 |
-| 级联 | .. |
-| 赋值 | = *= /= ~/= %= += -= <<= >>= &= ^= 丨= ??= |
+| 类型           |                                     运算符                                      |
+| -------------- | :-----------------------------------------------------------------------------: |
+| 一元后缀       |                            expr++ expr-- () [] . ?.                             |
+| 一元前缀       |                         -expr !expr ~expr ++expr --expr                         |
+| 乘式           |                                    * / % ~/                                     |
+| 和式           |                                       + -                                       |
+| 移位           |                                      << >>                                      |
+| 位与           |                                        &                                        |
+| 位异或         |                                        ^                                        |
+| 位或           |                                       丨                                        |
+|                | **译者注：由于markdown的制表和位或运算的符号发生冲突，故使用的是丨（gun）代替** |
+| 关系与类型测试 |                                >= > <= as is is!                                |
+| 等价           |                                      == !=                                      |
+| 逻辑与         |                                       &&                                        |
+| 逻辑或         |                                      丨丨                                       |
+|                |                                **译者注：同上**                                 |
+| 如果null       |                                       ??                                        |
+| 控制表达式     |                              expr1 ? expr2 : expr3                              |
+| 级联           |                                       ..                                        |
+| 赋值           |                   = *= /= ~/= %= += -= <<= >>= &= ^= 丨= ??=                    |
 
 使用运算符可以创建表达式，下面是几个例子：
 
-```
+```dart
   a++
   a + b
   a = b
@@ -782,7 +775,7 @@ Dart定义了下述表格中的运算符。你可重载部分的运算符，在 
 
 在 *运算符表* 中，每个运算符的优先级都高于后一行的优先级。例如 % 高于 == ，而 == 高于 && 。就意味着下面两行的代码执行方式是相同的。
 
-```
+```dart
   // 圆括号提高了可读性
   if ((n % i == 0) && (d % i == 0)) ...
 
@@ -796,17 +789,17 @@ Dart定义了下述表格中的运算符。你可重载部分的运算符，在 
 
 Dart支持通用的算术运算符，具体如下表：
 
-| 运算符 | 意义 |
-| --- | :---: |
-| + | 加 |
-| - | 减 |
-| -expr | 一元减号，也表示否定（反转表达式符号）|
-| * | 乘 |
-| / | 除 |
-| ~/ | 除，返回整数结果 |
-| % | 取余 |
+| 运算符 |                  意义                  |
+| ------ | :------------------------------------: |
+| +      |                   加                   |
+| -      |                   减                   |
+| -expr  | 一元减号，也表示否定（反转表达式符号） |
+| *      |                   乘                   |
+| /      |                   除                   |
+| ~/     |            除，返回整数结果            |
+| %      |                  取余                  |
 
-```
+```dart
   // ** 译者在此省略了部分演示代码**
   assert(5 / 2 == 2.5);
   assert(5 ~/ 2 == 2);
@@ -819,14 +812,14 @@ Dart也支持带前缀和后缀的自加或自减运算 （**具体的优先级�
 
 ### 等价与关系运算符
 
-| 运算符 | 意义 |
-| --- | :---: |
-| == | 等于；看下面讨论 |
-| != | 不等于 |
-| > | 大于 |
-| < | 小于 |
-| >= | 不小于 |
-| <= | 不大于 |
+| 运算符 |       意义       |
+| ------ | :--------------: |
+| ==     | 等于；看下面讨论 |
+| !=     |      不等于      |
+| >      |       大于       |
+| <      |       小于       |
+| >=     |      不小于      |
+| <=     |      不大于      |
 
 去测试两个对象 x、y 代表相同的东西，使用 == 运算符。（在极少数的情况下，你需要知道两个对象是不是同一个对象，使用identical()函数代替。）下面展示了 == 是如何工作的。
 
@@ -839,15 +832,15 @@ Dart也支持带前缀和后缀的自加或自减运算 （**具体的优先级�
 
 在程序运行的时候，as、is、is!运算符用于检查类型。
 
-| 运算符 | 意义 |
-| --- | :---: | ---: |
-| as | 类型转换 |
-| is | 如果是指定类型返回true |
-| is! | 如果不是指定类型返回true |
+| 运算符 | 意义  |
+| ------ | :---: |: |
+| as     |         类型转换         |
+| is     |  如果是指定类型返回true  |
+| is!    | 如果不是指定类型返回true |
 
 使用as运算符将对象强制转换为特定的类型。通常，应该使用它作为is对使用该对象的表达式后跟对象的测试的简写。
 
-```
+```dart
   if(emp is Person){
     // 检查类型
     emp.firstName = 'Bob';
@@ -864,7 +857,7 @@ Dart也支持带前缀和后缀的自加或自减运算 （**具体的优先级�
 
 （**译者在这一部分省略了大量与其他语言重复的部分，只针对个别特殊的符号加以解析**）
 
-```
+```dart
   b ??= value; // 如果b为null，值将会赋给b；如果不为空，b还是原来的值
 ```
 
@@ -872,11 +865,11 @@ Dart也支持带前缀和后缀的自加或自减运算 （**具体的优先级�
 
 ### 逻辑运算符
 
-| 运算符 | 意义 |
-| --- | :---: | ---: |
-| !expr | 非运算 |
-| 丨丨 | 或运算 |
-| && | 与运算 |
+| 运算符 | 意义  |
+| ------ | :---: |: |
+| !expr  | 非运算 |
+| 丨丨   | 或运算 |
+| &&     | 与运算 |
 
 ### 按位和移位运算符
 
@@ -884,38 +877,38 @@ Dart也支持带前缀和后缀的自加或自减运算 （**具体的优先级�
 
 （**译者按照 1为真，0为假编写解释**）
 
-| 运算符 | 意义 |
-| --- | :---: | ---: |
-| & | 全真则真，一假则假 |
-| 丨 | 一真则真，全假为假 |
-| ^ | 位异或运算，同为假，异为真 |
-| ~expr | 假为真，真为假 |
-| << | 左移位 |
-| >> | 右移位 |
+| 运算符 | 意义  |
+| ------ | :---: |: |
+| &      |     全真则真，一假则假     |
+| 丨     |     一真则真，全假为假     |
+| ^      | 位异或运算，同为假，异为真 |
+| ~expr  |       假为真，真为假       |
+| <<     |           左移位           |
+| >>     |           右移位           |
 
 ### 条件表达式
 
 Dart有两种运算符，可以简明使用if-else表达式
 
-condition ? expr1 : expr2
+`condition ? expr1 : expr2`
 
-*真返回1结果，假返回2结果*
+> 真返回1结果，假返回2结果
 
-expr1 ?? expr2
+`expr1 ?? expr2`
 
-*如果expr1非空，返回它的值；否则，返回2的结果*
+> 如果expr1非空，返回它的值；否则，返回2的结果
 
 **通过布尔表达式控制赋值，考虑?:**
 
 **如果布尔表达式是用来测试是否为空的，考虑??**
 
-```
+```dart
   String playerName(String name) => name ?? 'Guest';
 ```
 
 前面的例子至少可以使用两种方式来编写，但是不简洁：
 
-```
+```dart
   // 精简使用?:
   String playerName(String name) => name != null ? name : 'Guest';
 
@@ -933,7 +926,7 @@ expr1 ?? expr2
 
 级联（..）允许你对同一个对象进行一系列的操作。除了函数的调用之外，你还可以访问同一对象上的字段。这通常可以节省创建临时变量的步骤，让代码书写更流畅。
 
-```
+```dart
   querySeletor('#confirm') // 获取一个对象
     ..text = 'Confirm' // 使用它的一个成员
     ..classes.add('important')
@@ -944,7 +937,7 @@ expr1 ?? expr2
 
 前面的示例相当于：
 
-```
+```dart
   var button = querySeletor('#confirm');
   button.text = 'Confirm';
   button.classes.add('import');
@@ -953,7 +946,7 @@ expr1 ?? expr2
 
 你也可以嵌套你的级联：
 
-```
+```dart
   final addressBook = (AddressBookBuilder()
         ..name = 'jenny'
         ..email = 'jenny@example.com'
@@ -966,7 +959,7 @@ expr1 ?? expr2
 
 注意在返回实际函数的对象上构造级联。比如，以下代码失败：
 
-```
+```dart
   var sb = StringBuffer();
   sb.write('foo')
     ..write('bar'); // error:write方法没有定义为void
@@ -978,15 +971,14 @@ sb.write()调用返回void，你不能在void这一类函数上构造级联。
 
 ### 其他类型运算符
 
-
 在其他的示例中，你已经见过大多的剩余的运算符了：
 
-| 运算符 | 名称 | 意义 |
-| --- | :---: | ---: |
-| () | 函数应用 | 表示函数的调用 |
-| [] | 列表访问 | 引用列表中指定索引处的值 |
-| . | 成员访问权限 | 指表达式的属性；示例：fool.bar从表达式foo中选择了属性bar |
-| ?. | 条件成员访问 | 跟 '.' 类似，但是运算符的左边可以为null，比如：foo?.bar 从foo中选择了bar属性即使foo为空（在这种情况下，foo?.bar的值为null） |
+| 运算符 |     名称     |                                                                                                                        意义 |
+| ------ | :----------: | --------------------------------------------------------------------------------------------------------------------------: |
+| ()     |   函数应用   |                                                                                                              表示函数的调用 |
+| []     |   列表访问   |                                                                                                    引用列表中指定索引处的值 |
+| .      | 成员访问权限 |                                                                    指表达式的属性；示例：fool.bar从表达式foo中选择了属性bar |
+| ?.     | 条件成员访问 | 跟 '.' 类似，但是运算符的左边可以为null，比如：foo?.bar 从foo中选择了bar属性即使foo为空（在这种情况下，foo?.bar的值为null） |
 
 了解更多的信息关于 . ，?. ，和 . 运算符，看 *类Classes* 。
 
@@ -1007,7 +999,7 @@ sb.write()调用返回void，你不能在void这一类函数上构造级联。
 
 Dart支持带有可选else的if语句，在下个例子中有演示。另见 *条件表达式* 。
 
-```
+```dart
   if (isRaining()){
     you.bringRainCoat();
   } else if (isSnowing()){
@@ -1023,7 +1015,7 @@ Dart支持带有可选else的if语句，在下个例子中有演示。另见 *�
 
 你可以使用标准的for循环迭代。
 
-```
+```dart
   var message = StringBuffer('Dart is fun');
   for (var i = 0; i < 5; i++){
     message.write('!');
@@ -1032,7 +1024,7 @@ Dart支持带有可选else的if语句，在下个例子中有演示。另见 *�
 
 在Dart中for循环内部的闭包捕获了索引的值，避免了JavaScript中常见的陷阱。
 
-```
+```dart
   var callbacks = [];
   for (var i = 0; i < 2; i++){
     callbacks.add(() => print(i));
@@ -1044,13 +1036,13 @@ Dart支持带有可选else的if语句，在下个例子中有演示。另见 *�
 
 如果迭代的对象是可迭代的，你可以使用forEach()方法。如果你不需要当前的迭代计数器，使用forEach()是个不错的选择。
 
-```
+```dart
   candidates.forEach((candidate) => candidate.interview());
 ```
 
 类似于列表和集合这样的可迭代类也支持迭代的for-in结构：
 
-```
+```dart
   var collection = [0, 1, 2];
   for (var x in collection){
     print(x); // 0 1 2
@@ -1061,7 +1053,7 @@ Dart支持带有可选else的if语句，在下个例子中有演示。另见 *�
 
 while控制条件在循环之前
 
-```
+```dart
   while (!isDone()) {
     doSomething();
   }
@@ -1069,7 +1061,7 @@ while控制条件在循环之前
 
 do-while控制条件在循环之后
 
-```
+```dart
   do{
     printLine();
   } while(!atEndOfPage());
@@ -1079,7 +1071,7 @@ do-while控制条件在循环之后
 
 使用break停止循环
 
-```
+```dart
   while(true){
     if (shutDownRequested()) break;
     processIncomingRequests();
@@ -1088,7 +1080,7 @@ do-while控制条件在循环之后
 
 使用continue跳到下一个循环迭代
 
-```
+```dart
   for (int i = 0; i < candidates.length; i++){
     var candidate = candidates[i];
     if (candidate.yearsExperience < 5){
@@ -1100,7 +1092,7 @@ do-while控制条件在循环之后
 
 如果你使用类似于列表、集合的 *迭代* ，你可以以不同的方式写示例：
 
-```
+```dart
   candidates
       .where((c) => c.yearsExperience >= 5)
       .forEach((c) => c.interview());
@@ -1114,7 +1106,7 @@ do-while控制条件在循环之后
 
 如果布尔值为false，使用assert语句将中断程序的正常执行。你可以在这愉快之旅中的例子中感受assert语句的用法。
 
-```
+```dart
   // 确认变量有个非空的值
   assert(text != null);
 
@@ -1123,14 +1115,13 @@ do-while控制条件在循环之后
 
   // 确认是个https链接
   assert(urlString.startsWith('https'));
-
 ```
 
 > 注：断言语句对生产代码并没有什么影响；它们只是用于开发。Flutter允许断言在 *debug模式* 。仅限开发的工具（比如dartdevc）通常默认支持断言。一些工具如dart,dart2js通过命令行标志支持断言：--enable-asserts
 
 将消息加到断言，添加字符串作为第二参数。
 
-```
+```dart
   assert(urlString.startsWith('https'),'URL ($urlString) should start with "https".');
 ```
 
@@ -1148,13 +1139,13 @@ Dart提供了 *异常* 和 *错误* 两种类型，以及许多预定义的子�
 
 一个抛出或者引发异常的示例：
 
-```
+```dart
   throw FormatException('Expected at least 1 section');
 ```
 
 你也可以任意对象：
 
-```
+```dart
   throw 'Out of llamas!';
 ```
 
@@ -1162,7 +1153,7 @@ Dart提供了 *异常* 和 *错误* 两种类型，以及许多预定义的子�
 
 因为抛出异常是一种表达，你可以使用 => 语句抛出异常，在任何可以表达的地方：
 
-```
+```dart
   void distanceTo(Point other) => throw UnimplementedError();
 ```
 
@@ -1170,7 +1161,7 @@ Dart提供了 *异常* 和 *错误* 两种类型，以及许多预定义的子�
 
 捕获，会阻止异常的传播（除非重新抛出异常）。捕获异常使有机会处理它：
 
-```
+```dart
   try{
     breedMoreLlamas();
   } on OutOfLlamasException {
@@ -1180,7 +1171,7 @@ Dart提供了 *异常* 和 *错误* 两种类型，以及许多预定义的子�
 
 要处理可能抛出多种异常的代码，可以指定多个捕获子句。与抛出对象类型匹配的第一个子句处理异常。如果捕获子句未指定类型，则该子句可以处理任何异常：
 
-```
+```dart
   try{
     breedMoreLlamas();
   } on OutOfLlamasException {
@@ -1199,7 +1190,7 @@ Dart提供了 *异常* 和 *错误* 两种类型，以及许多预定义的子�
 
 你可以指定一个或者两个catch()参数。第一个抛出异常，第二个是堆栈跟踪（*StackTrace* 对象）
 
-```
+```dart
   try{
     // ...
   } on Exception catch (e) {
@@ -1212,7 +1203,7 @@ Dart提供了 *异常* 和 *错误* 两种类型，以及许多预定义的子�
 
 要处理部分异常，并允许它传播，请使用关键字rethrow。
 
-```
+```dart
   void misbehave() {
     try {
       dynamic foo = true;
@@ -1236,7 +1227,7 @@ Dart提供了 *异常* 和 *错误* 两种类型，以及许多预定义的子�
 
 无论是否抛出异常，要确保某些代码的运行，请使用finally子句。如果没有catch子句匹配该异常，则在finally子句运行后传播异常。
 
-```
+```dart
   try{
     breedMoreLlamas();
   } finally {
@@ -1247,7 +1238,7 @@ Dart提供了 *异常* 和 *错误* 两种类型，以及许多预定义的子�
 
 finally子句在任何匹配的catch子句之后运行：
 
-```
+```dart
   try{
     breedMoreLlamas();
   } catch (e) {
@@ -1269,7 +1260,7 @@ Dart是一门面向对象的语言，具有类以及基于mixin的继承。每�
 
 使用点（.）来引用实例变量或者方法：
 
-```
+```dart
   var p = Point(2, 2);
 
   // 设置实例变量y的值
@@ -1284,7 +1275,7 @@ Dart是一门面向对象的语言，具有类以及基于mixin的继承。每�
 
 使用 ?. 代替 . 避免最左边的操作数为空的情况
 
-```
+```dart
   // 如果p不为空，把它的y的值设为4
   p?.y = 4;
 ```
@@ -1293,14 +1284,14 @@ Dart是一门面向对象的语言，具有类以及基于mixin的继承。每�
 
 你可以使用构造函数来创造对象。构造函数的名称可以是 ClassName 或 ClassName.identifier。举例，下面的代码创建了一个Point对象使用了构造函数 Point() 和 Point.fromJson()：
 
-```
+```dart
   var p1 = Point(2, 2);
   var p2 = Point.fromJson({'x': 1, 'y': 2});
 ```
 
 下面的代码的效果是一样的，但是在构造函数之前使用了可选的关键字 *new*
 
-```
+```dart
   var p1 = new Point(2, 2);
   var p2 = new Point.fromJson({'x': 1, 'y': 2});
 ```
@@ -1309,13 +1300,13 @@ Dart是一门面向对象的语言，具有类以及基于mixin的继承。每�
 
 一些类提供了常构造函数。使用常构造函数去创建一个编译时的常量，在构造函数的名称前添加关键词 *const* 。
 
-```
+```dart
   var p = const ImmutablePoint(2, 2);
 ```
 
 构造两个相同的编译时常量会产生一个规范的实例：
 
-```
+```dart
   var a = const ImmutablePoint(1, 1);
   var b = const ImmutablePoint(1, 1);
 
@@ -1324,7 +1315,7 @@ Dart是一门面向对象的语言，具有类以及基于mixin的继承。每�
 
 在常量的上下文中，你可以省略构造函数或者文字前的 *const* 关键字，比如，看这段创造一个常地图代码。
 
-```
+```dart
   // 这有太多的const关键字
 
   const pointAndLine = const {
@@ -1335,7 +1326,7 @@ Dart是一门面向对象的语言，具有类以及基于mixin的继承。每�
 
 你可以省略除了第一个const关键字
 
-```
+```dart
   // 只用一个const
   const pointAndLine = {
     'point': [ImmutablePoint(0, 0)],
@@ -1345,7 +1336,7 @@ Dart是一门面向对象的语言，具有类以及基于mixin的继承。每�
 
 如果一个常构造函数在常上下文外被调用没有const，它创建了一个非 *常对象*：
 
-```
+```dart
   var a = const ImmutablePoint(1, 1);// 创造了一个常对象
   var b = ImmutablePoint(1, 1);// 未创造一个常对象
 
@@ -1358,7 +1349,7 @@ Dart是一门面向对象的语言，具有类以及基于mixin的继承。每�
 
 在程序执行的过程中获取对象的类型，你可以使用Object的runtimeType属性，返回 *类型Type* 对象。
 
-```
+```dart
   print('The type of a is ${a.runtimeType}');
 ```
 
@@ -1368,7 +1359,7 @@ Dart是一门面向对象的语言，具有类以及基于mixin的继承。每�
 
 这里展示了如何去声明一个实例变量：
 
-```
+```dart
   class Point{
     num x; // 声明实例变量x，初始值为空
     num y; // 声明变量y，初始值为空
@@ -1380,7 +1371,7 @@ Dart是一门面向对象的语言，具有类以及基于mixin的继承。每�
 
 所有的实例变量都生成一个隐式的getter方法。非最终实例变量（Non-final）也生成一个setter方法。获取更多的细节，参照 *Getters和Setters*
 
-```
+```dart
   class Point {
     num x;
     num y;
@@ -1402,7 +1393,7 @@ Dart是一门面向对象的语言，具有类以及基于mixin的继承。每�
 
 最常见的构造函数形式，即生成构造函数，创造类的一个新实例：
 
-```
+```dart
   class Point {
     num x, y;
     Point (num x, num y) {
@@ -1420,7 +1411,7 @@ this关键字指向现况的实例
 
 将构造函数的值赋给实例变量的模式是很常见的。Dart有语法sugar使实现更简单：
 
-```
+```dart
   class Point {
     num x, y;
 
@@ -1442,7 +1433,7 @@ this关键字指向现况的实例
 
 使用命名构造函数为类实现多个构造函数去实现更加的清晰。
 
-```
+```dart
   class Point {
     num x, y;
 
@@ -1471,7 +1462,7 @@ this关键字指向现况的实例
 
 在下面的示例中，Employee类的构造函数调用它的超类Person的命名构造函数
 
-```
+```dart
   class Person {
     String firstName;
 
@@ -1505,7 +1496,7 @@ this关键字指向现况的实例
 
 因为在调用构造函数之前会处理超类构造函数的参数，所以参数可以是一个表达式，比如函数调用：
 
-```
+```dart
   class Employee extends Person {
     Employee() : super.fromJson(getDefaultData());
     // ...
@@ -1518,7 +1509,7 @@ this关键字指向现况的实例
 
 除了调用超类的构造函数外，你也可以在构造函数体运行之前，初始化实例变量。用逗号分隔初始化：
 
-```
+```dart
   // 初始化列表在构造函数体运行之前设置实例的变量
 
   Point.fromJson(Map<String, num> json)
@@ -1532,7 +1523,7 @@ this关键字指向现况的实例
 
 在开发期间，你可以在初始化列表验证输入的值
 
-```
+```dart
   Point.withAssert(this.x, this.y) : assert(x >= 0) {
     print('In Point.withAssert() : ($x, $y)');
   }
@@ -1540,7 +1531,7 @@ this关键字指向现况的实例
 
 设置final字段时，设置初始化列表很方便。在下面的示例中在初始化列表中初始化了三个final字段。
 
-```
+```dart
   import 'dart:math';
 
   class Point {
@@ -1564,7 +1555,7 @@ this关键字指向现况的实例
 
 有时候构造函数只用于在同一个类中重定向到其他的构造函数。重定向构造函数的函数体是空的，构造函数的调用出现在冒号之后。
 
-```
+```dart
   class Point {
     num x, y;
 
@@ -1580,7 +1571,7 @@ this关键字指向现况的实例
 
 如果你的类生成不打算更改的对象，你可以使这些对象为编译时常量。为了去实现，定义一个const构造函数，并保证所有的实例变量都是final型。
 
-```
+```dart
   class ImmutablePoint {
     static final ImmutablePoint origin  = const ImmutablePoint(0, 0);
 
@@ -1597,7 +1588,7 @@ this关键字指向现况的实例
 
 下面的示例演示了一个构造函数从缓存中返回了一个对象：
 
-```
+```dart
   class Logger {
     final String name;
     bool mute = false;
@@ -1627,7 +1618,7 @@ this关键字指向现况的实例
 
 调用工厂构造函数跟调用其他的构造函数一样：
 
-```
+```dart
   var logger = Logger('UI');
   logger.log('Button clicked');
 ```
@@ -1640,7 +1631,7 @@ this关键字指向现况的实例
 
 在对象中的实例方法有使用实例对象和this的权限。下面例子中的distanceTo()方法就是一个实例方法的示例：
 
-```
+```dart
   import 'dart:math';
 
   class Point{
@@ -1660,7 +1651,7 @@ this关键字指向现况的实例
 
 Getters和Setters是提供了读写对象属性的特殊方法。回想一下，每一个实例变量都有一个隐性的getter，如果合适的话还有一个setter。你可以通过get和set关键字实现创建额外的属性。
 
-```
+```dart
   class Rectangle {
     num left, top, width, height;
 
@@ -1692,7 +1683,7 @@ Getters和Setters是提供了读写对象属性的特殊方法。回想一下，
 
 抽象类一般有抽象方法，下面是一个带有抽象方法的抽象类的示例：
 
-```
+```dart
   // 这个类被定义为抽象类，不能被实例化
   abstract class AbstractContainer {
     // 定义构造函数，域，方法。。。
@@ -1707,7 +1698,7 @@ Getters和Setters是提供了读写对象属性的特殊方法。回想一下，
 
 类通过在implements子句中声明它们，然后提供接口所需的API来实现一个或者多个接口：
 
-```
+```dart
   // 一个Person，隐式接口包含greet()
   class Person {
     // 在界面中，仅能在这个库中可见
@@ -1738,7 +1729,7 @@ Getters和Setters是提供了读写对象属性的特殊方法。回想一下，
 
 这是一个指定类实现多个接口的示例：
 
-```
+```dart
   class Point implements Comparable, Location {...}
 ```
 
@@ -1746,7 +1737,7 @@ Getters和Setters是提供了读写对象属性的特殊方法。回想一下，
 
 使用extends创造子类，并且使用super指向超类：
 
-```
+```dart
   class Television {
     void turnOn() {
       _illuminateDisplay();
@@ -1770,7 +1761,7 @@ Getters和Setters是提供了读写对象属性的特殊方法。回想一下，
 
 子类可以重写实例方法，getters，setters。你可以使用 *@override* 注释来指示你有意重载的成员：
 
-```
+```dart
   class SmartTelevision extends Television {
     @override
     void turnOn() {...}
@@ -1784,19 +1775,19 @@ Getters和Setters是提供了读写对象属性的特殊方法。回想一下，
 
 你可以重载下表中的运算符。举个例子，如果你定义一个Vector类，你可以定义一个 + 方法相加两个vector（**译者注：可以参考C++在这部分的内容**）。
 
-| 可重载运算符表 | | | |
-| :---: | :---: | :---: | :---: |
-| < | + | 丨 | [] |
-| > | / | ^ | []= |
-| <= | ~/ | & | ~ |
-| >= | * | << | == |
-| - | % | >> |
+| 可重载运算符表 |       |       |       |
+| :------------: | :---: | :---: | :---: |
+|       <        |   +   |  丨   |  []   |
+|       >        |   /   |   ^   |  []=  |
+|       <=       |  ~/   |   &   |   ~   |
+|       >=       |   *   |  <<   |  ==   |
+|       -        |   %   |  >>   |
 
 > 你可能注意到了!=是不可以重载的运算符，表达式e1 != e2只是!(e1 == e2)的句法糖（**译者注：看到这里，译者觉得所谓句法糖的意思，貌似是等价写法的意思，嘤嘤嘤**）
 
 下面是类重载运算符的一个例子：
 
-```
+```dart
   class Vector {
     final int x, y;
 
@@ -1825,7 +1816,7 @@ Getters和Setters是提供了读写对象属性的特殊方法。回想一下，
 
 要在代码中尝试使用不存在的方法或实例变量时，检测或做出反应，你可以重载noSuchMethod()：
 
-```
+```dart
   class A {
     // 除非你重载noSuchMethod，否则使用不存在的成员会导致NOSuchMethodError。
 
@@ -1852,13 +1843,13 @@ Getters和Setters是提供了读写对象属性的特殊方法。回想一下，
 
 使用关键字enum声明枚举类型：
 
-```
+```dart
   enum Color { red, green, blue }
 ```
 
 每个枚举的值都有一个 **索引index** getter，返回从零开始的索引。
 
-```
+```dart
   assert(Color.red.index == 0);
   assert(Color.green.index == 1);
   assert(Color.blue.index == 2);
@@ -1866,14 +1857,14 @@ Getters和Setters是提供了读写对象属性的特殊方法。回想一下，
 
 去获取枚举中所有值的列表，你可以使用枚举的values常方法
 
-```
+```dart
   List<Color> colors = Color.values;
   assert(Color[2] == Color.blue);
 ```
 
 你可以在switch语句使用枚举，如果你不处理枚举的所有的值你将会收到警告。
 
-```
+```dart
   var aColor = Color.blue;
 
   switch (aColor) {
@@ -1901,7 +1892,7 @@ Mixins是一种在多个类层次结构中重用类代码的方法。
 
 使用 mixin，请使用with关键字后跟一个或多个mixin名称。以下示例显示了两个使用mixins的类：
 
-```
+```dart
   class Musician extends Performer with Musical {
     // ...
   }
@@ -1916,7 +1907,7 @@ Mixins是一种在多个类层次结构中重用类代码的方法。
 
 去实现mixin，创建一个类并扩展对象、不要声明构造函数。除非您希望mixin可用作常规类，否则请使用mixin关键字而不是class。
 
-```
+```dart
   mixin Musical {
     bool canPlayPiano = false;
     bool canCompose = false;
@@ -1936,7 +1927,7 @@ Mixins是一种在多个类层次结构中重用类代码的方法。
 
 可以使用mixin指定一个明确的类型，举个例子，你的mixin可以调用一个没有定义的方法——使用on指向调用的超类。
 
-```
+```dart
   mixin MusicalPerformer on Musician {
     // ...
   }
@@ -1952,7 +1943,7 @@ Mixins是一种在多个类层次结构中重用类代码的方法。
 
 静态变量（类变量）对类范围的状态和常量是非常实用的：
 
-```
+```dart
   class Queue {
     static const initialCapacity = 16;
     //...
@@ -1971,7 +1962,7 @@ Mixins是一种在多个类层次结构中重用类代码的方法。
 
 静态方法（类方法）不在实例中作用，因此无this权限。
 
-```
+```dart
   import 'dart:math';
 
   class Point {
@@ -2000,20 +1991,20 @@ Mixins是一种在多个类层次结构中重用类代码的方法。
 
 ## 泛型Generics
 
-如果你查看基础API文档数组，列表，你将会看到类型其实是List<E>。<...>将列表标记为泛型（或者参数化）类型——具有正式参数类型的参数。按照惯例，类型变量有单个字母名称，比如E,T,S,K和V。
+如果你查看基础API文档数组，列表，你将会看到类型其实是`List<E>`。<...>将列表标记为泛型（或者参数化）类型——具有正式参数类型的参数。按照惯例，类型变量有单个字母名称，比如E,T,S,K和V。
 
 ### 为什么要使用泛型？
 
-**译者注：泛型即为模板**
+> 译者注：泛型即为模板
 
 泛型常被用于类型安全，然而它们有比仅仅让你的代码运行的更多好处。
 
 * 正确指定泛型类型可以生成更好的代码。
 * 您可以使用泛型来减少代码重复。
 
-如果你希望列表只包含字符串，你可以声明它为List<String>（读作“字符串列表”）。这样，你，你的程序和你的工具检测列表中的非字符串参数是个错误。
+如果你希望列表只包含字符串，你可以声明它为`List<String>`（读作“字符串列表”）。这样，你，你的程序和你的工具检测列表中的非字符串参数是个错误。
 
-```
+```dart
   var names = List<String>();
   names.addAll(['Seth', 'Kathy', 'Lars']);
   names.add(42); // 错误
@@ -2021,7 +2012,7 @@ Mixins是一种在多个类层次结构中重用类代码的方法。
 
 使用泛型的另一个原因是减少代码重复。泛型允许您在多种类型之间共享单个接口和实现，同时仍然利用静态分析。比如创建一个缓存对象的接口
 
-```
+```dart
   abstract class ObjectCache {
     Object getByKey(String key);
     void setByKey(String Key, Object value);
@@ -2030,7 +2021,7 @@ Mixins是一种在多个类层次结构中重用类代码的方法。
 
 你发现你想创建一个指定字符串版本的接口，你创建另一个接口：
 
-```
+```dart
   abstract class StringCache {
     String getByKey(String key);
     void setByKey(String Key, String value);
@@ -2041,7 +2032,7 @@ Mixins是一种在多个类层次结构中重用类代码的方法。
 
 泛型类型可以解决你创建所有的这些接口的问题。取而代之，你可以带有类型参数创建单个接口：
 
-```
+```dart
   abstract class Cache<T> {
     T getByKey(String key);
     void setByKey(String key, T value);
@@ -2054,7 +2045,7 @@ Mixins是一种在多个类层次结构中重用类代码的方法。
 
 列表和集合文字可以被参数化。参数化文字除了在括号之前添加类型，其他就像你之前看到的那样。
 
-```
+```dart
   var names = <String>['Seth', 'Kathy', 'Lars'];
   var pages = <String, String>{
     'index.html': 'Homepage',
@@ -2067,7 +2058,7 @@ Mixins是一种在多个类层次结构中重用类代码的方法。
 
 在使用构造函数的时候，指定一个或者多个类型，将类型放在类名后面的尖角括号之中
 
-```
+```dart
   var names = List<String>();
   names.addAll(['Seth', 'Kathy', 'Lars']);
   var nameSet = Set<String>.from(names);
@@ -2075,7 +2066,7 @@ Mixins是一种在多个类层次结构中重用类代码的方法。
 
 下面的代码创建了一个整型键、View类型的地图
 
-```
+```dart
   var views = Map<int, View>();
 ```
 
@@ -2083,19 +2074,19 @@ Mixins是一种在多个类层次结构中重用类代码的方法。
 
 Dart泛型的类型具体化，意味着它们在运行时携带类型信息。
 
-```
+```dart
   var names = List<String>();
   names.addAll(['Seth', 'Kathy', 'Lars']);
   print(names is List<String>); // 输出true
 ```
 
-> 相反，在Java中泛型擦除，就意味着在运行中删除泛型类型参数。在Java之中，你可以测试对象是否List，但是不能测试它是否是List<String>。
+> 相反，在Java中泛型擦除，就意味着在运行中删除泛型类型参数。在Java之中，你可以测试对象是否List，但是不能测试它是否是`List<String>`。
 
 ### 限制参数化类型
 
 当你实现泛型类型之时，你需要去限制参数的类型。你可以使用extends。
 
-```
+```dart
   class Foo<T extends SomeBaseClass> {
     String toString() => "Instance of 'Foo<$T>'";
   }
@@ -2105,21 +2096,21 @@ Dart泛型的类型具体化，意味着它们在运行时携带类型信息。
 
 可以使用SomeBaseClass或其任何子类作为泛型参数：
 
-```
+```dart
   var someBaseClassFoo = Foo<SomeBaseClass>();
   var extenderFoo = Foo<Extender>();
 ```
 
 也可以不指定泛型参数：
 
-```
+```dart
   var foo = Foo();
   print(foo); // Instance of 'Foo<SomeBaseClass>'
 ```
 
 指定非SomeBaseClass会导致错误：
 
-```
+```dart
   var foo = Foo<Object>(); // 错误
 ```
 
@@ -2127,7 +2118,7 @@ Dart泛型的类型具体化，意味着它们在运行时携带类型信息。
 
 起初，Dart的泛型支持被限制在类。一个更新的语法，叫做泛型方法，允许类型参数在方法或者函数中：
 
-```
+```dart
   T first<T>(List<T> ts) {
     // 先做一些初始化工作或者错误检查
     T tmp = ts[0];
@@ -2135,11 +2126,11 @@ Dart泛型的类型具体化，意味着它们在运行时携带类型信息。
   }
 ```
 
-这里在first<T>中泛型类型参数，允许你在一些地方使用类型参数T
+这里在`first<T>`中泛型类型参数，允许你在一些地方使用类型参数T
 
-* 在函数的返回类型(T)
-* 在参数类型(List<T>)
-* 在局部变量(T tmp)
+* 在函数的返回类型(`T`)
+* 在参数类型(`List<T>`)
+* 在局部变量(`T tmp`)
 
 了解关于泛型的更多信息，参考 [使用泛型方法](https://github.com/dart-lang/sdk/blob/master/pkg/dev_compiler/doc/GENERIC_METHODS.md)
 
@@ -2155,13 +2146,13 @@ import和library指令可以帮助你创建一个模块化的、可分享的代�
 
 举个例子，Dart web应用通常使用 [dart:html](https://api.dartlang.org/stable/dart-html)库。
 
-```
+```dart
   import 'dart:html';
 ```
 
 import需要的唯一参数是指定库的URI。对于内置的库，URI有特殊的 **dart:** 方案。对于其他的库，你可以使用文件系统路径或者 **package:** 方案。package方案指定由类似于pub tool的包管理提供的库。
 
-```
+```dart
   import 'package:test/test.dart';
 ```
 
@@ -2171,7 +2162,7 @@ import需要的唯一参数是指定库的URI。对于内置的库，URI有特�
 
 如果你输入两个含有冲突的标识符的库，然后你可以为一个或者所有的库指定前缀。举个例子，如果库1和库2都有Element类：
 
-```
+```dart
   import 'package:lib1/lib1.dart';
   import 'package:lib2/lib2.dart' as lib2;
 
@@ -2186,7 +2177,7 @@ import需要的唯一参数是指定库的URI。对于内置的库，URI有特�
 
 如果你只想使用库的一部分，你可以有选择性的输入库。
 
-```
+```dart
   // 只输入foo
   import 'package:lib1/lib.dart' show foo;
 
@@ -2204,13 +2195,13 @@ import需要的唯一参数是指定库的URI。对于内置的库，URI有特�
 
 要懒加载一个库，你必须首先使用deferred as。
 
-```
+```dart
   import 'package:greetings/hello.dart' deferred as hello;
 ```
 
 当你使用库的使用，使用库的标识符调用loadLibrary()
 
-```
+```dart
   Future greet async{
     await hello.loadLibrary();
     hello.printGreeting();
@@ -2254,13 +2245,13 @@ async和await关键字支持异步编程，让你写异步代码看起来更像�
 
 代码使用async和await是异步的，但是它看起来很像是同步代码。举个例子，这有一些使用await关键字等待异步函数结果的代码：
 
-```
+```dart
   await lookUpVersion();
 ```
 
 去使用await，代码必须是一个异步函数——一个函数被标记为async：
 
-```
+```dart
   Future checkVersion() async {
     var version = await lookUpVersion();
   }
@@ -2272,7 +2263,7 @@ async和await关键字支持异步编程，让你写异步代码看起来更像�
 
 使用try,catch,finally去处理和清除使用await代码的错误：
 
-```
+```dart
   try {
     version = await lookUpVersion();
   } catch(e) {
@@ -2282,7 +2273,7 @@ async和await关键字支持异步编程，让你写异步代码看起来更像�
 
 你可以在异步函数中多次使用await。举个例子，下面的代码等待了三次函数结果：
 
-```
+```dart
   var entrypoint = await findEntryPoint();
   var exitCode = await runExecutable(entrypoint, args);
   await flushThenExit(exitCode);
@@ -2292,7 +2283,7 @@ async和await关键字支持异步编程，让你写异步代码看起来更像�
 
 **如果使用await的时候出现了编译时错误，请确保await是在一个异步函数之中(async function)。** 举个例子，在app中的main()函数中使用await，main()的函数体必须被标记为async：
 
-```
+```dart
   Future main() async {
     checkVersion();
     print('In main: version is ${await lookUpVersion()}');
@@ -2305,19 +2296,19 @@ async和await关键字支持异步编程，让你写异步代码看起来更像�
 
 将async关键字加到函数上，使它返回一个Future。举个例子，考虑一个返回String的同步函数：
 
-```
+```dart
   String lookUpVersion() => '1.0.0';
 ```
 
 如果将它改为异步函数——举个例子，future表现执行起来会非常耗时——返回值是一个Future。
 
-```
+```dart
   Future<String> lookUpVersion() async => '1.0.0';
 ````
 
 注意这个函数体不需要使用Future的API。在必要的情况下，Dart创造一个Future对象。
 
-如果你的函数不返回任何有用的值，让它的返回类型为Future<void>。
+如果你的函数不返回任何有用的值，让它的返回类型为`Future<void>`。
 
 ### 处理流(Streams)
 
@@ -2330,7 +2321,7 @@ async和await关键字支持异步编程，让你写异步代码看起来更像�
 
 异步for循环有以下的形式：
 
-```
+```dart
   await for (var或者类型 标识符 in 表达式) {
     // 在每一次流发射值的时候执行
   }
@@ -2346,7 +2337,7 @@ async和await关键字支持异步编程，让你写异步代码看起来更像�
 
 **如果在表现异步for循环的时候出现编译时错误，确保await for在asyn函数内。** 举个例子，你在你的app的main()函数使用异步for循环，main()的函数体必须被标记为async。
 
-```
+```dart
   Future main() async {
     // ...
     await for (var request in requestServer) {
@@ -2369,7 +2360,7 @@ async和await关键字支持异步编程，让你写异步代码看起来更像�
 
 表现一个同步发生器，用sync*标记函数体，用yield传递值：
 
-```
+```dart
   Iterable<int> naturalsTo(int n) sync* {
     int k = 0;
     while (k < n) yield k++;
@@ -2378,7 +2369,7 @@ async和await关键字支持异步编程，让你写异步代码看起来更像�
 
 表现一个异步发生器，用async*标记函数体，用yield传递值：
 
-```
+```dart
   Stream<int> asynchronousNaturalsTo(int n) async* {
     int k = 0;
     while (k < n) yield k++;
@@ -2387,7 +2378,7 @@ async和await关键字支持异步编程，让你写异步代码看起来更像�
 
 如果你的生成器是递归，你可以使用yield*提高其性能：
 
-```
+```dart
   Iterable<int> naturalsDownFrom(int n) sync* {
     if (n > 0){
       yield n;
@@ -2404,7 +2395,7 @@ async和await关键字支持异步编程，让你写异步代码看起来更像�
 
 在下面的示例中，WannabeFunction类定义了一个call()函数，接受三个字符串并连接它们，用空格分隔每个字符串，并附加一个感叹号。
 
-```
+```dart
   class WannabeFunction {
     call(String a, String b, String c) => '$a $b $c!';
   }
@@ -2427,7 +2418,7 @@ async和await关键字支持异步编程，让你写异步代码看起来更像�
 
 下面是没有使用typedef的代码：
 
-```
+```dart
   class SortedCollection {
     Function compare;
 
@@ -2451,7 +2442,7 @@ async和await关键字支持异步编程，让你写异步代码看起来更像�
 
 当把f的值赋给compare时，类型信息就丢失了。f的类型是(Object, Object) -> int(其中 -> 表示返回)，但是compare的类型是Function。如果我们将代码更改为使用显式名称并保留类型信息，则开发人员和工具都可以使用该信息。
 
-```
+```dart
   typedef Compare = int Function(Object a, Object b);
 
   class SortedCollection {
@@ -2475,7 +2466,7 @@ async和await关键字支持异步编程，让你写异步代码看起来更像�
 
 因为类型定义只是别名，它们提供了检查函数类型的方法。
 
-```
+```dart
   typedef Compare<T> = int Function(T a, T b);
 
   int sort(int a, int b) => a - b;
@@ -2490,7 +2481,7 @@ async和await关键字支持异步编程，让你写异步代码看起来更像�
 
 所有的Dart代码都有两个注释：@deprecated和@override，有关使用@override的示例，参阅[扩展类](https://www.dartlang.org/guides/language/language-tour#extending-a-class)，以下是使用@deprecated的示例：
 
-```
+```dart
   class Television {
     /// _Deprecated:使用[turnOn]代替_
     @deprecated
@@ -2505,7 +2496,7 @@ async和await关键字支持异步编程，让你写异步代码看起来更像�
 
 你可以定义你自己的元数据注释。下面的例子中定义了一个@todo注释并带有两个参数。
 
-```
+```dart
   library todo;
   class Todo {
     final String who;
@@ -2517,7 +2508,7 @@ async和await关键字支持异步编程，让你写异步代码看起来更像�
 
 下面是使用@todo的一个示例：
 
-```
+```dart
   import 'todo.dart';
 
   @Todo('seth', 'make this do something')
@@ -2544,7 +2535,7 @@ Dart支持单行、多行、文档评论。
 
 以下是文档注释的示例，包含对其他的类和参数的引用：
 
-```
+```dart
   /// A domesticated South American camelid (Lama glama).
   ///
   /// Andean cultures have used llamas as meat and pack
@@ -2565,7 +2556,7 @@ Dart支持单行、多行、文档评论。
       // ...
     }
   }
-````
+```
 
 在生成的文档之中，[Food]成为了Food类API文档的链接。
 
